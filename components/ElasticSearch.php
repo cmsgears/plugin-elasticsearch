@@ -49,13 +49,13 @@ class ElasticSearch extends \yii\base\Component {
 
 		$factory = Yii::$app->factory->getContainer();
 
-		$factory->set( 'cmsgears\elasticsearch\services\interfaces\IElasticSearchService', 'cmsgears\elasticsearch\services\ElasticSearchService' );
+		$factory->set( 'cmsgears\elasticsearch\services\interfaces\system\IElasticSearchService', 'cmsgears\elasticsearch\services\system\ElasticSearchService' );
 	}
 
 	public function initServices() {
 
 		$factory = Yii::$app->factory->getContainer();
 
-		$factory->set( 'elasticSearch', 'cmsgears\elasticsearch\services\ElasticSearchService' );
+		$factory->set( 'elasticSearchService', 'cmsgears\elasticsearch\services\system\ElasticSearchService' );
 	}
 }

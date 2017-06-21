@@ -20,9 +20,6 @@ class m160822_061228_elasticsearch extends \yii\db\Migration {
     private $site;
     private $master;
 
-    private $uploadsDir;
-    private $uploadsUrl;
-
     public function init() {
 
 		// Table prefix
@@ -46,15 +43,15 @@ class m160822_061228_elasticsearch extends \yii\db\Migration {
     private function insertElasticConfig() {
 
         $this->insert( $this->prefix . 'core_form', [
-            'siteId'	=> $this->site->id,
+            'siteId' => $this->site->id,
             'createdBy' => $this->master->id, 'modifiedBy' => $this->master->id,
-            'name'		=> 'Config Elasticsearch', 'slug' => 'config-elasticsearch',
-            'type'		=> CoreGlobal::TYPE_SYSTEM,
+            'name' => 'Config Elasticsearch', 'slug' => 'config-elasticsearch',
+            'type' => CoreGlobal::TYPE_SYSTEM,
             'description' => 'Elasticsearch configuration form.',
             'successMessage' => 'All configurations saved successfully.',
-            'captcha'	=> false,
+            'captcha' => false,
             'visibility' => Form::VISIBILITY_PROTECTED,
-            'active'	=> true, 'userMail' => false,'adminMail' => false,
+            'active' => true, 'userMail' => false,'adminMail' => false,
             'createdAt' => DateUtil::getDateTime(),
             'modifiedAt' => DateUtil::getDateTime()
         ]);
@@ -64,7 +61,11 @@ class m160822_061228_elasticsearch extends \yii\db\Migration {
         $columns = [ 'formId', 'name', 'label', 'type', 'compress', 'validators', 'order', 'icon', 'htmlOptions' ];
 
         $fields	= [
-            [ $config->id, 'active', 'Active', FormField::TYPE_TOGGLE, false, 'required', 0, NULL, '{"title":"Active"}' ]
+            [ $config->id, 'active', 'Active', FormField::TYPE_TOGGLE, false, 'required', 0, NULL, '{"title":"Active"}' ],
+			[ $config->id, 'resource', 'Resource', FormField::TYPE_TOGGLE, false, 'required', 0, NULL, '{"title":"Resource"}' ],
+			[ $config->id, 'url', 'Url', FormField::TYPE_TEXT, false, NULL, 0, NULL, '{"title":"Url","placeholder":"Url"}' ],
+			[ $config->id, 'port', 'Port', FormField::TYPE_TEXT, false, NULL, 0, NULL, '{"title":"Port","placeholder":"Port"}' ],
+			[ $config->id, 'resource_path', 'Resource Path', FormField::TYPE_TEXT, false, NULL, 0, NULL, '{"title":"Resource Path","placeholder":"Resource Path"}' ],
 		];
 
         $this->batchInsert( $this->prefix . 'core_form_field', $columns, $fields );
@@ -75,7 +76,11 @@ class m160822_061228_elasticsearch extends \yii\db\Migration {
         $columns = [ 'modelId', 'name', 'label', 'type', 'valueType', 'value' ];
 
         $metas	= [
-            [ $this->site->id, 'Elasticsearch', 'Elasticsearch', 'elasticsearch', 'flag', '0' ]
+            [ $this->site->id, 'active', 'Active', 'elasticsearch', 'flag', '0' ],
+			[ $this->site->id, 'resource', 'Resource', 'elasticsearch', 'flag', '0' ],
+			[ $this->site->id, 'url', 'Url', 'elasticsearch', 'text', NULL ],
+			[ $this->site->id, 'port', 'Port', 'elasticsearch', 'text', NULL ],
+			[ $this->site->id, 'resource_path', 'Resource Path', 'elasticsearch', 'text', NULL ],
         ];
 
         $this->batchInsert( $this->prefix . 'core_site_meta', $columns, $metas );
