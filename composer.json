@@ -4,7 +4,7 @@
 	"homepage": "http://www.cmsgears.org",
 	"type": "package",
 	"keywords": [ "yii2", "cmsgears", "plugin", "elasticsearch" ],
-	"license": "GPLv3",
+	"license": "GPL-3.0-or-later",
 	"support": {
         "source": "http://www.cmsgears.org/downloads/plugins/elasticsearch",
 		"forum": "http://forum.cmsgears.org/",
