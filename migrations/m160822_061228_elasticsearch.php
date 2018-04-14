@@ -58,14 +58,14 @@ class m160822_061228_elasticsearch extends \yii\db\Migration {
 
         $config	= Form::findBySlug( 'config-elasticsearch', CoreGlobal::TYPE_SYSTEM );
 
-        $columns = [ 'formId', 'name', 'label', 'type', 'compress', 'validators', 'order', 'icon', 'htmlOptions' ];
+        $columns = [ 'formId', 'name', 'label', 'type', 'compress', 'meta', 'active', 'validators', 'order', 'icon', 'htmlOptions' ];
 
         $fields	= [
-            [ $config->id, 'active', 'Active', FormField::TYPE_TOGGLE, false, 'required', 0, NULL, '{"title":"Active"}' ],
-			[ $config->id, 'resource', 'Resource', FormField::TYPE_TOGGLE, false, 'required', 0, NULL, '{"title":"Resource"}' ],
-			[ $config->id, 'url', 'Url', FormField::TYPE_TEXT, false, NULL, 0, NULL, '{"title":"Url","placeholder":"Url"}' ],
-			[ $config->id, 'port', 'Port', FormField::TYPE_TEXT, false, NULL, 0, NULL, '{"title":"Port","placeholder":"Port"}' ],
-			[ $config->id, 'resource_path', 'Resource Path', FormField::TYPE_TEXT, false, NULL, 0, NULL, '{"title":"Resource Path","placeholder":"Resource Path"}' ],
+            [ $config->id, 'active', 'Active', FormField::TYPE_TOGGLE, false, true, true, 'required', 0, NULL, '{"title":"Active"}' ],
+			[ $config->id, 'resource', 'Resource', FormField::TYPE_TOGGLE, false, true, true, 'required', 0, NULL, '{"title":"Resource"}' ],
+			[ $config->id, 'url', 'Url', FormField::TYPE_TEXT, false, true, true, NULL, 0, NULL, '{"title":"Url","placeholder":"Url"}' ],
+			[ $config->id, 'port', 'Port', FormField::TYPE_TEXT, false, true, true, NULL, 0, NULL, '{"title":"Port","placeholder":"Port"}' ],
+			[ $config->id, 'resource_path', 'Resource Path', FormField::TYPE_TEXT, false, true, true, NULL, 0, NULL, '{"title":"Resource Path","placeholder":"Resource Path"}' ],
 		];
 
         $this->batchInsert( $this->prefix . 'core_form_field', $columns, $fields );
@@ -92,4 +92,5 @@ class m160822_061228_elasticsearch extends \yii\db\Migration {
 
         return true;
     }
+
 }
