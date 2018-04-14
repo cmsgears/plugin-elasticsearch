@@ -48,10 +48,10 @@ class m160822_061228_elasticsearch extends \yii\db\Migration {
             'name' => 'Config Elasticsearch', 'slug' => 'config-elasticsearch',
             'type' => CoreGlobal::TYPE_SYSTEM,
             'description' => 'Elasticsearch configuration form.',
-            'successMessage' => 'All configurations saved successfully.',
+            'success' => 'All configurations saved successfully.',
             'captcha' => false,
             'visibility' => Form::VISIBILITY_PROTECTED,
-            'active' => true, 'userMail' => false,'adminMail' => false,
+            'status' => Form::STATUS_ACTIVE, 'userMail' => false,'adminMail' => false,
             'createdAt' => DateUtil::getDateTime(),
             'modifiedAt' => DateUtil::getDateTime()
         ]);
@@ -73,14 +73,14 @@ class m160822_061228_elasticsearch extends \yii\db\Migration {
 
     private function insertDefaultConfig() {
 
-        $columns = [ 'modelId', 'name', 'label', 'type', 'valueType', 'value' ];
+        $columns = [ 'modelId', 'name', 'label', 'type', 'active', 'valueType', 'value', 'data' ];
 
         $metas	= [
-            [ $this->site->id, 'active', 'Active', 'elasticsearch', 'flag', '0' ],
-			[ $this->site->id, 'resource', 'Resource', 'elasticsearch', 'flag', '0' ],
-			[ $this->site->id, 'url', 'Url', 'elasticsearch', 'text', NULL ],
-			[ $this->site->id, 'port', 'Port', 'elasticsearch', 'text', NULL ],
-			[ $this->site->id, 'resource_path', 'Resource Path', 'elasticsearch', 'text', NULL ],
+            [ $this->site->id, 'active', 'Active', 'elasticsearch', 1, 'flag', '0', NULL ],
+			[ $this->site->id, 'resource', 'Resource', 'elasticsearch', 1, 'flag', '0', NULL ],
+			[ $this->site->id, 'url', 'Url', 'elasticsearch', 1, 'text', NULL, NULL ],
+			[ $this->site->id, 'port', 'Port', 'elasticsearch', 1, 'text', NULL, NULL ],
+			[ $this->site->id, 'resource_path', 'Resource Path', 'elasticsearch', 1, 'text', NULL, NULL ],
         ];
 
         $this->batchInsert( $this->prefix . 'core_site_meta', $columns, $metas );
