@@ -2,9 +2,9 @@
 namespace cmsgears\elasticsearch\config;
 
 // CMG Imports
-use cmsgears\core\common\config\CmgProperties;
+use cmsgears\core\common\config\Properties;
 
-class ElasticProperties extends CmgProperties {
+class ElasticProperties extends Properties {
 
 	// Variables ---------------------------------------------------
 
