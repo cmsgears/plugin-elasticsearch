@@ -56,7 +56,7 @@ class m160822_061228_elasticsearch extends \yii\db\Migration {
             'modifiedAt' => DateUtil::getDateTime()
         ]);
 
-        $config	= Form::findBySlug( 'config-elasticsearch', CoreGlobal::TYPE_SYSTEM );
+        $config	= Form::findBySlugType( 'config-elasticsearch', CoreGlobal::TYPE_SYSTEM );
 
         $columns = [ 'formId', 'name', 'label', 'type', 'compress', 'meta', 'active', 'validators', 'order', 'icon', 'htmlOptions' ];
 
