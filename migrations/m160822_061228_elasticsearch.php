@@ -48,24 +48,24 @@ class m160822_061228_elasticsearch extends \yii\db\Migration {
             'name' => 'Config Elasticsearch', 'slug' => 'config-elasticsearch',
             'type' => CoreGlobal::TYPE_SYSTEM,
             'description' => 'Elasticsearch configuration form.',
-            'successMessage' => 'All configurations saved successfully.',
+            'success' => 'All configurations saved successfully.',
             'captcha' => false,
             'visibility' => Form::VISIBILITY_PROTECTED,
-            'active' => true, 'userMail' => false,'adminMail' => false,
+            'status' => Form::STATUS_ACTIVE, 'userMail' => false,'adminMail' => false,
             'createdAt' => DateUtil::getDateTime(),
             'modifiedAt' => DateUtil::getDateTime()
         ]);
 
-        $config	= Form::findBySlug( 'config-elasticsearch', CoreGlobal::TYPE_SYSTEM );
+        $config	= Form::findBySlugType( 'config-elasticsearch', CoreGlobal::TYPE_SYSTEM,[ 'ignoreSite' => true ] );
 
-        $columns = [ 'formId', 'name', 'label', 'type', 'compress', 'validators', 'order', 'icon', 'htmlOptions' ];
+        $columns = [ 'formId', 'name', 'label', 'type', 'compress', 'meta', 'active', 'validators', 'order', 'icon', 'htmlOptions' ];
 
         $fields	= [
-            [ $config->id, 'active', 'Active', FormField::TYPE_TOGGLE, false, 'required', 0, NULL, '{"title":"Active"}' ],
-			[ $config->id, 'resource', 'Resource', FormField::TYPE_TOGGLE, false, 'required', 0, NULL, '{"title":"Resource"}' ],
-			[ $config->id, 'url', 'Url', FormField::TYPE_TEXT, false, NULL, 0, NULL, '{"title":"Url","placeholder":"Url"}' ],
-			[ $config->id, 'port', 'Port', FormField::TYPE_TEXT, false, NULL, 0, NULL, '{"title":"Port","placeholder":"Port"}' ],
-			[ $config->id, 'resource_path', 'Resource Path', FormField::TYPE_TEXT, false, NULL, 0, NULL, '{"title":"Resource Path","placeholder":"Resource Path"}' ],
+            [ $config->id, 'active', 'Active', FormField::TYPE_TOGGLE, false, true, true, 'required', 0, NULL, '{"title":"Active"}' ],
+			[ $config->id, 'resource', 'Resource', FormField::TYPE_TOGGLE, false, true, true, 'required', 0, NULL, '{"title":"Resource"}' ],
+			[ $config->id, 'url', 'Url', FormField::TYPE_TEXT, false, true, true, NULL, 0, NULL, '{"title":"Url","placeholder":"Url"}' ],
+			[ $config->id, 'port', 'Port', FormField::TYPE_TEXT, false, true, true, NULL, 0, NULL, '{"title":"Port","placeholder":"Port"}' ],
+			[ $config->id, 'resource_path', 'Resource Path', FormField::TYPE_TEXT, false, true, true, NULL, 0, NULL, '{"title":"Resource Path","placeholder":"Resource Path"}' ],
 		];
 
         $this->batchInsert( $this->prefix . 'core_form_field', $columns, $fields );
@@ -73,14 +73,14 @@ class m160822_061228_elasticsearch extends \yii\db\Migration {
 
     private function insertDefaultConfig() {
 
-        $columns = [ 'modelId', 'name', 'label', 'type', 'valueType', 'value' ];
+        $columns = [ 'modelId', 'name', 'label', 'type', 'active', 'valueType', 'value', 'data' ];
 
         $metas	= [
-            [ $this->site->id, 'active', 'Active', 'elasticsearch', 'flag', '0' ],
-			[ $this->site->id, 'resource', 'Resource', 'elasticsearch', 'flag', '0' ],
-			[ $this->site->id, 'url', 'Url', 'elasticsearch', 'text', NULL ],
-			[ $this->site->id, 'port', 'Port', 'elasticsearch', 'text', NULL ],
-			[ $this->site->id, 'resource_path', 'Resource Path', 'elasticsearch', 'text', NULL ],
+            [ $this->site->id, 'active', 'Active', 'elasticsearch', 1, 'flag', '0', NULL ],
+			[ $this->site->id, 'resource', 'Resource', 'elasticsearch', 1, 'flag', '0', NULL ],
+			[ $this->site->id, 'url', 'Url', 'elasticsearch', 1, 'text', NULL, NULL ],
+			[ $this->site->id, 'port', 'Port', 'elasticsearch', 1, 'text', NULL, NULL ],
+			[ $this->site->id, 'resource_path', 'Resource Path', 'elasticsearch', 1, 'text', NULL, NULL ],
         ];
 
         $this->batchInsert( $this->prefix . 'core_site_meta', $columns, $metas );
@@ -92,4 +92,5 @@ class m160822_061228_elasticsearch extends \yii\db\Migration {
 
         return true;
     }
+
 }
